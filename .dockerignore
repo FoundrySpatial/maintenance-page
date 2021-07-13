@@ -1,0 +1,12 @@
+# git stuff
+.git
+.gitignore
+
+# docker stuff
+Dockerfile
+.dockerignore
+
+# dev stuff
+test/
+node_modules
+.eslintrc

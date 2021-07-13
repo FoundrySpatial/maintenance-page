@@ -1,0 +1,14 @@
+{% extends "layout.njk" %}
+
+{% block title %}
+Scheduled Maintenance
+{% endblock %}
+
+{% block content %}
+  <h1>Scheduled Maintenance</h1>
+  <p>This site is temporarily unavailable while we perform upgrades and maintenance.</p>
+  {% if extraText %}
+    <p>{{ extraText }}</p>
+  {% endif %}
+  <img alt="Foundry Spatial Logo" src="/images/foundry-spatial-logo.svg" />
+{% endblock %}

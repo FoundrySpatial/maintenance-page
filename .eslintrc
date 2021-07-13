@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "airbnb-base",
+    "foundryspatial"
+  ],
+  "env": {
+    "node":true,
+    "mocha":true,
+    "es6": true
+  },
+  "rules": {
+  },
+  "settings": {
+  }
+}
