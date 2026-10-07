@@ -1,0 +1,46 @@
+name: "Production: Build & Push Maintenance Page"
+
+on:
+  push:
+    branches:
+      - fluxcd-505-qa-elk
+  workflow_dispatch:
+
+jobs:
+  bump_version:
+    runs-on: ubuntu-24.04
+    outputs:
+      version: ${{ steps.version_bump.outputs.newTag }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name:  'Automated Version Bump'
+        uses:  'phips28/gh-action-bump-version@v11.1.2'
+        id: version_bump
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PACKAGEJSON_DIR: ./
+        with:
+          # Always bump - will ensure that a bump occurs even if multiple actions run, so we will get a version number
+          bump-policy: 'ignore'
+
+  build_push_nginx:
+    runs-on: ubuntu-24.04
+    needs: [bump_version]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: 'Azure Login'
+        uses: azure/docker-login@v2
+        with:
+          login-server: ${{ vars.AZURE_REGISTRY_NAME }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build And Push NGINX Image
+        uses: docker/build-push-action@v7
+        with:
+          push: true
+          tags: ${{ vars.AZURE_REGISTRY_NAME }}/foundry/maintenance:${{ needs.bump_version.outputs.version }}
+

@@ -1,28 +1,18 @@
 {
-  "name": "down-for-maintenance",
-  "version": "0.0.0",
-  "description": "",
+  "name": "foundry-maintenance-page",
   "private": true,
-  "main": "app.js",
+  "version": "1.0.0",
+  "type": "module",
   "scripts": {
-    "lint": "eslint --max-warnings 0 --ext .js .",
-    "start": "node ./bin/start",
-    "test": "mocha --recursive"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "cookie-parser": "^1.4.5",
-    "debug": "^4.3.1",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "express": "^4.17.1",
-    "morgan": "^1.10.0",
-    "nunjucks": "^3.2.3"
+    "vue": "^3.5.13"
   },
   "devDependencies": {
-    "chai": "^4.3.4",
-    "chai-http": "^4.3.0",
-    "eslint": "^7.26.0",
-    "eslint-config-foundryspatial": "^2.1.2",
-    "eslint-plugin-import": "^2.23.2",
-    "mocha": "^8.4.0"
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vite": "^6.1.0"
   }
 }
