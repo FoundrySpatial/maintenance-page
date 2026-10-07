@@ -3,7 +3,7 @@ name: "Production: Build & Push Maintenance Page"
 on:
   push:
     branches:
-      - fluxcd-505-qa-elk
+      - master
   workflow_dispatch:
 
 jobs:
