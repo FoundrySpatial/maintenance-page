@@ -1,21 +1,21 @@
-# frontend build stage
-FROM node:14-alpine
+FROM node:20.11.0 as build-stage
+WORKDIR /client
 
-# File Author / Maintainer
-LABEL authors="Foundry Spatial <technical@foundryspatial.com>"
-
-# set work directory
-WORKDIR /app
-
-# install packages needed for building
-COPY package.json yarn.lock ./
-RUN yarn install --production && yarn cache clean
-
-# copy source
+COPY package.json package-lock.json ./
+RUN npm ci
 COPY . .
+RUN npm run build
 
-# Express uses port 3000/tcp by default
-EXPOSE 3000
+# Production Stage
+FROM nginx as production-stage
+RUN mkdir /app
+COPY --from=build-stage /client/dist/ /app
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY env.js.template /app/env.js.template
+COPY entrypoint.sh /entrypoint.sh
 
-# run server
-CMD ["yarn", "run", "start"]
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 80
+
+ENTRYPOINT ["/entrypoint.sh"]
