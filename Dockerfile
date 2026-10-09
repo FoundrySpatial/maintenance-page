@@ -1,4 +1,4 @@
-FROM node:20.11.0 as build-stage
+FROM node:24.8.0 as build-stage
 WORKDIR /client
 
 COPY package.json package-lock.json ./

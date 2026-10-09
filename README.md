@@ -6,3 +6,7 @@ This app serves the Foundry Spatial - General Under Construction Page. To be use
 
 npm install
 npm run dev
+
+## Run in Docker
+
+docker run --env-file .env -p 5173:80  maintenance:local
