@@ -9,4 +9,5 @@ npm run dev
 
 ## Run in Docker
 
+docker build -t maintenance:local .
 docker run --env-file .env -p 5173:80  maintenance:local
